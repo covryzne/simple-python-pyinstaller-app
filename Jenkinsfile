@@ -1,19 +1,17 @@
 node {
     stage('Build') {
-        echo 'Building the application...'
-        // Tambahkan perintah build Anda di sini, misalnya:
-        // sh 'npm install'
-        // sh 'npm run build'
+        sh 'python3 -m py_compile sources/add2vals.py sources/calc.py'
     }
 
     stage('Test') {
-        echo 'Running unit tests...'
-        // Tambahkan perintah pengujian di sini, misalnya:
-        // sh 'npm test'
+        sh 'chmod +x ./jenkins/scripts/test.sh'
+        sh './jenkins/scripts/test.sh'
+        junit 'test-reports/results.xml'
     }
 
-    stage('Deploy') {
-        echo 'Deploying application...'
-        // Tambahkan langkah-langkah deploy di sini
+    stage('Deliver') {
+        sh 'chmod +x ./jenkins/scripts/deliver.sh'
+        sh './jenkins/scripts/deliver.sh'
+        archiveArtifacts artifacts: 'dist/add2vals', fingerprint: true
     }
 }
