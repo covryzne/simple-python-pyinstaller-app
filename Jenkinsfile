@@ -1,8 +1,6 @@
 node {
-    stage('Debug Workspace') {
-        sh 'pwd'
-        sh 'ls -la'
-        sh 'ls -la sources || true'
+    stage('Checkout') {
+        checkout scm
     }
 
     stage('Build') {
