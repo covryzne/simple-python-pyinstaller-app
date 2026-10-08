@@ -1,4 +1,10 @@
 node {
+    stage('Debug Workspace') {
+        sh 'pwd'
+        sh 'ls -la'
+        sh 'ls -la sources || true'
+    }
+
     stage('Build') {
         sh 'python3 -m py_compile sources/add2vals.py sources/calc.py'
     }
