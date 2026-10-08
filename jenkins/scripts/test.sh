@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
-echo 'The following command runs pytest to test your Python application'
-echo 'and generates a JUnit XML report for Jenkins.'
+echo 'Running unit tests using pytest...'
 set -x
-py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py
+python -m pytest --verbose --junit-xml test-reports/results.xml sources/test_calc.py
 set +x
