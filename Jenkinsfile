@@ -1,17 +1,19 @@
 node {
     stage('Build') {
-        docker.image('python:3-alpine').inside {
-            sh 'python -m py_compile sources/add2vals.py sources/calc.py'
-        }
+        echo 'Building the application...'
+        // Tambahkan perintah build Anda di sini, misalnya:
+        // sh 'npm install'
+        // sh 'npm run build'
     }
+
     stage('Test') {
-        docker.image('python:3-alpine').inside {
-            sh 'python -m unittest tests/test_add2vals.py'
-        }
+        echo 'Running unit tests...'
+        // Tambahkan perintah pengujian di sini, misalnya:
+        // sh 'npm test'
     }
-    stage('Deliver') {
-        docker.image('python:3-alpine').inside {
-            sh './jenkins/scripts/deliver.sh'
-        }
+
+    stage('Deploy') {
+        echo 'Deploying application...'
+        // Tambahkan langkah-langkah deploy di sini
     }
 }
