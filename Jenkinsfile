@@ -13,9 +13,21 @@ node {
         junit 'test-reports/results.xml'
     }
 
-    stage('Deliver') {
+    stage('Manual Approval') {
+        checkpoint 'Before Deploy'
+        input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed'
+    }
+
+    stage('Deploy') {
         sh 'chmod +x ./jenkins/scripts/deliver.sh'
         sh './jenkins/scripts/deliver.sh'
+        
+        echo 'Aplikasi berhasil di-deploy. Menjeda eksekusi selama 1 menit...'
+        sh 'sleep 60'
+        
+        sh 'chmod +x ./jenkins/scripts/kill.sh'
+        sh './jenkins/scripts/kill.sh'
+        
         archiveArtifacts artifacts: 'dist/add2vals', fingerprint: true
     }
 }
