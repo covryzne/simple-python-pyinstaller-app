@@ -14,7 +14,6 @@ node {
     }
 
     stage('Manual Approval') {
-        checkpoint 'Before Deploy'
         input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed'
     }
 
